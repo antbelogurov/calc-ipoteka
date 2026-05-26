@@ -1,0 +1,37 @@
+# Зависимости
+node_modules/
+
+# Сборка
+dist/
+build/
+
+# Переменные окружения (секреты)
+.env
+.env.local
+.env.*.local
+
+# Prisma (генерируемые файлы)
+frontend/.next/
+
+# Логи
+*.log
+npm-debug.log*
+
+# Редакторы
+.vscode/settings.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Vite
+frontend/dist/
+frontend/.vite/
+
+# TypeScript build info
+*.tsbuildinfo

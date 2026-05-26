@@ -1,0 +1,16 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  font-family: var(--p-font-family, system-ui, sans-serif);
+  background-color: var(--p-surface-ground, #18181b);
+  color: var(--p-text-color, #f4f4f5);
+}
