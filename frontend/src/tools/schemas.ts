@@ -21,3 +21,6 @@ export const addEntrySchema = z.object({
     .number({ required_error: 'Укажите платёж по кредиту' })
     .positive('Сумма должна быть больше нуля'),
 })
+
+// Тип выводится автоматически из схемы
+export type AddEntryInput = z.infer<typeof addEntrySchema>

@@ -1,19 +1,24 @@
-<script setup>
+<script setup lang="ts">
 import { reactive } from 'vue'
 import { z } from 'zod'
 import Drawer from 'primevue/drawer'
 import InputNumber from 'primevue/inputnumber'
 import Button from 'primevue/button'
-import { addEntrySchema } from '@/tools/schemas.js'
-import { useLoansTable } from '@/composables/useLoansTable.js'
+import { addEntrySchema } from '@/tools/schemas.ts'
+import { useLoansTable } from '@/composables/useLoansTable.ts'
 
 // v-model:visible управляется снаружи (из App.vue)
 const visible = defineModel('visible', { default: false })
 
 const { addEntry } = useLoansTable()
 
-// Поля формы
-const form = reactive({
+// Поля формы — явно типизируем number | null, иначе TS выводит тип null
+const form = reactive<{
+  mortgageBalance: number | null
+  mortgagePayment: number | null
+  creditBalance: number | null
+  creditPayment: number | null
+}>({
   mortgageBalance: null,
   mortgagePayment: null,
   creditBalance: null,
@@ -28,16 +33,24 @@ const errors = reactive({
   creditPayment: '',
 })
 
+// Явное перечисление вместо Object.keys — TS не умеет гарантировать тип ключа через string
 const clearErrors = () => {
-  Object.keys(errors).forEach((k) => (errors[k] = ''))
+  errors.mortgageBalance = ''
+  errors.mortgagePayment = ''
+  errors.creditBalance = ''
+  errors.creditPayment = ''
 }
 
 const resetForm = () => {
-  Object.keys(form).forEach((k) => (form[k] = null))
+  form.mortgageBalance = null
+  form.mortgagePayment = null
+  form.creditBalance = null
+  form.creditPayment = null
   clearErrors()
 }
 
-const handleSave = () => {
+// async — потому что addEntry теперь делает запрос к серверу
+const handleSave = async () => {
   clearErrors()
 
   // Дата — сегодня в формате YYYY-MM-DD
@@ -46,8 +59,8 @@ const handleSave = () => {
   const result = addEntrySchema.safeParse({ date: today, ...form })
 
   if (!result.success) {
-    // flatten() разворачивает ошибки Zod в плоский объект { fieldErrors, formErrors }
-    const fieldErrors = result.error.flatten().fieldErrors
+    // z.flattenError() — новый способ в Zod v4, flatten() на экземпляре устарел
+    const fieldErrors = z.flattenError(result.error).fieldErrors
     errors.mortgageBalance = fieldErrors.mortgageBalance?.[0] ?? ''
     errors.mortgagePayment = fieldErrors.mortgagePayment?.[0] ?? ''
     errors.creditBalance   = fieldErrors.creditBalance?.[0] ?? ''
@@ -55,8 +68,8 @@ const handleSave = () => {
     return
   }
 
-  // Валидация прошла — добавляем запись и закрываем
-  addEntry(result.data)
+  // Валидация прошла — POST на сервер, потом закрываем
+  await addEntry(result.data)
   resetForm()
   visible.value = false
 }

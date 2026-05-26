@@ -6,3 +6,13 @@ declare module '*.vue' {
   const component: DefineComponent
   export default component
 }
+
+// Типизируем наши VITE_* переменные из .env
+// Без этого import.meta.env.VITE_API_URL имеет тип any
+interface ImportMetaEnv {
+  readonly VITE_API_URL: string
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv
+}

@@ -1,10 +1,4 @@
 [
   { "id": 1, "date": "2024-01-01", "mortgageBalance": 4500000, "mortgagePayment": 42150, "creditBalance": 500000, "creditPayment": 17200 },
-  { "id": 2, "date": "2024-02-01", "mortgageBalance": 4493475, "mortgagePayment": 42150, "creditBalance": 488842, "creditPayment": 17200 },
-  { "id": 3, "date": "2024-03-01", "mortgageBalance": 4486899, "mortgagePayment": 42150, "creditBalance": 477548, "creditPayment": 17200 },
-  { "id": 4, "date": "2024-04-01", "mortgageBalance": 4480272, "mortgagePayment": 42150, "creditBalance": 466116, "creditPayment": 17200 },
-  { "id": 5, "date": "2024-05-01", "mortgageBalance": 4473592, "mortgagePayment": 42150, "creditBalance": 454542, "creditPayment": 17200 },
-  { "id": 6, "date": "2024-06-01", "mortgageBalance": 4466859, "mortgagePayment": 42150, "creditBalance": 442825, "creditPayment": 17200 },
-  { "id": 7, "date": "2024-07-01", "mortgageBalance": 4460072, "mortgagePayment": 42150, "creditBalance": 430961, "creditPayment": 17200 },
-  { "id": 8, "date": "2024-08-01", "mortgageBalance": 4453231, "mortgagePayment": 42150, "creditBalance": 418949, "creditPayment": 17200 }
+  { "id": 2, "date": "2024-02-01", "mortgageBalance": 4493475, "mortgagePayment": 42150, "creditBalance": 488842, "creditPayment": 17200 }
 ]

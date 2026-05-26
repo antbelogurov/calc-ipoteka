@@ -7,9 +7,10 @@ const fastify = Fastify({
   logger: true,
 })
 
-// CORS — разрешаем запросы с фронтенда (порт 3030)
+// CORS — разрешаем любой localhost в dev-режиме (порт может меняться)
+// В продакшне origin должен быть конкретным URL из env-переменной
 await fastify.register(cors, {
-  origin: 'http://localhost:3030',
+  origin: /^http:\/\/localhost:\d+$/,
 })
 
 // Подключаем роуты займов с префиксом /api

@@ -1,12 +1,13 @@
-<script setup>
+<script setup lang="ts">
 import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
 import ColumnGroup from 'primevue/columngroup'
 import Row from 'primevue/row'
-import { useLoansTable } from '@/composables/useLoansTable.js'
+import Button from 'primevue/button'
+import { useLoansTable } from '@/composables/useLoansTable.ts'
 
 // Вся логика и данные — в composable
-const { tableData, dynClass, fmt, fmtDate, fmtPct } = useLoansTable()
+const { tableData, dynClass, deleteEntry, fmt, fmtDate, fmtPct } = useLoansTable()
 </script>
 
 <template>
@@ -27,6 +28,7 @@ const { tableData, dynClass, fmt, fmtDate, fmtPct } = useLoansTable()
           <Column header="Общий долг" :colspan="2" />
           <Column header="Динамика"   :colspan="2" />
           <Column header=""           :colspan="2" />
+          <Column header=""           :rowspan="2" />
         </Row>
         <Row>
           <Column header="Остаток" /><Column header="Платёж" />
@@ -88,6 +90,13 @@ const { tableData, dynClass, fmt, fmtDate, fmtPct } = useLoansTable()
       <Column>
         <template #body="{ data }">
           <span :class="dynClass(data.dynamicsPaymentPct)">{{ fmtPct(data.dynamicsPaymentPct) }}</span>
+        </template>
+      </Column>
+
+      <!-- Удаление -->
+      <Column>
+        <template #body="{ data }">
+          <Button icon="pi pi-trash" severity="danger" text rounded size="small" @click="deleteEntry(data.id)" />
         </template>
       </Column>
 
